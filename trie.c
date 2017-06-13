@@ -1,4 +1,4 @@
-#include "tries.h"
+#include "trie.h"
 #define DICTIONARY "small.txt"  // default args
 #define TEXT "text.txt"
 
@@ -87,13 +87,7 @@ bool check(const char * find_me){
 **/
 bool unload(void){
     TRNode * trav = root;
-    for(int i = 0; i < ALPHA; i++){
-        if(trav->children[i] != NULL){
-            trav = trav->children[i];
-        }else{
-            free(trav->children[i]);
-        }
-    }
+    
     return true;  // always true, i know i know
 }
 

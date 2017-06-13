@@ -6,7 +6,7 @@
 #include<stdbool.h>
 #define ALPHA 26
 #define MAX_LEN 45
-#define tries_h
+#define trie_h
 
 typedef struct trie{
     bool is_word;
