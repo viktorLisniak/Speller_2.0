@@ -62,6 +62,7 @@ bool load(const char * dictionary){
             trav->is_word = true;
         }
     }
+	free(dict);
     return true;  // it's not forever
 }
 
