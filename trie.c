@@ -87,8 +87,27 @@ bool check(const char * find_me){
 **/
 bool unload(void){
     TRNode * trav = root;
-    
-    return true;  // always true, i know i know
+    if (trav == NULL){
+        return false;
+    }
+    free_node(trav);
+    return true;
+}
+
+void free_node(TRNode * pointer){
+    printf("pointer: %p\n", pointer);
+    if(pointer == NULL){
+        return;
+    }else{
+        for(int i = 0; i < ALPHA; i++){
+            printf("pointer->children[%d] %p\n", i, pointer->children[i]);
+            if(pointer->children[i] != NULL){
+                free_node(pointer->children[i]);
+                printf("pointer: %p\n", pointer);
+                free(pointer);
+            }
+        }
+    }
 }
 
 unsigned int get_index(const char symbol){
