@@ -21,6 +21,7 @@ unsigned int size(void);
 
 bool unload(void);
 
+void free_node(TRNode * pointer);
 
 unsigned int get_index(const char symbol);
 
