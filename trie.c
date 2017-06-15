@@ -26,7 +26,7 @@ int main(int argc, char * argv[]){
     bool is_unloaded = unload();
     printf("is_unloaded? : %d\n", is_unloaded);
     
-    
+    free(tex);
     return 0;
 }
 
@@ -62,7 +62,7 @@ bool load(const char * dictionary){
             trav->is_word = true;
         }
     }
-	free(dict);
+    free(dict);
     return true;  // it's not forever
 }
 
@@ -115,6 +115,4 @@ unsigned int get_index(const char symbol){
     num = tolower(symbol) - 'a';
     return num;
 }
-//create_node(TRNode ** node, char a){
-//    TRNode * node = (TRNode*) malloc(1* sizeof(TRNode));
-//}
+
