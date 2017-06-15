@@ -33,43 +33,46 @@ int main(int argc, char * argv[]){
 bool load(const char * dictionary){
     char temp[MAX_LEN]; for(int q = 0; q < MAX_LEN; q++){temp[q] = 0;}
     FILE * dict = fopen(dictionary, "r");
-    
     while(fscanf(dict, "%s", temp) != EOF){
         int i = 0;
         TRNode * trav = root;
-        printf("trav: %p\n", trav); //debug
-        printf("root: %p\n", root);
-        while(temp[i] != 0){
+        while(isalpha(temp[i])){
             unsigned int box = get_index(temp[i]);
             if(root == NULL){
-                root = (TRNode*) malloc(1 * sizeof(TRNode));
-                trav = root;
-            }else{
-                printf("trev: %p\n", trav); //debug
-                printf("root: %p\n", root);
-                if(trav->children[box] == NULL){
-                    trav->children[box] = (TRNode*) malloc(1 * sizeof(TRNode));
-                    trav = trav->children[box];
-                }else{
-                    trav = trav->children[box];
+                TRNode * node = (TRNode*) malloc(1 * sizeof(TRNode));   /// error handling
+                if(node == NULL){
+                    return false;
                 }
-                i++;
+                root = node;
+                for (int q = 0; q < ALPHA; q++){root->children[q] = NULL;}
+                trav = root;
             }
-            printf("trav: %p\n", trav); //debug
-            printf("root: %p\n", root);
+            if(trav->children[box] == NULL){
+                TRNode * temp_node = (TRNode*) malloc(1 * sizeof(TRNode));   /// error handling
+                if(temp_node == NULL){
+                    return false;
+                }
+                trav->children[box] = temp_node;
+                
+                for(int p = 0; p < ALPHA; p++){    //// this for loop helps to avoid any garbage in memory (i know it exists)
+                    trav->children[box]->children[p] = NULL;
+                } 
+            }
+            trav = trav->children[box];
+            i++;
         }
         if(trav != NULL){
             trav->is_word = true;
         }
     }
     free(dict);
-    return true;  // it's not forever
+    return true;
 }
 
 bool check(const char * find_me){
     TRNode * trav = root;
     if(trav == NULL){
-	return false;
+		return false;
     }
     int i = 0;
     while(find_me[i] != 0){
