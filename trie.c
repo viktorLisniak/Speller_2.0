@@ -68,14 +68,16 @@ bool load(const char * dictionary){
 
 bool check(const char * find_me){
     TRNode * trav = root;
-    bool found_me = false;
+    if(trav == NULL){
+	return false;
+    }
     int i = 0;
     while(find_me[i] != 0){
         unsigned int box = get_index(find_me[i]);
         if(trav->children[box] != NULL){
             trav = trav->children[box];
         }else{
-            return found_me;
+            return false;
         }
         i++;
     }
