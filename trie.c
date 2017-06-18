@@ -100,19 +100,15 @@ bool unload(void){
 }
 
 void free_node(TRNode * pointer){
-    printf("pointer: %p\n", pointer);  ///debug
     if(pointer == NULL){
         return;
-    }else{
-        for(int i = 0; i < ALPHA; i++){
-            printf("pointer->children[%d] %p\n", i, pointer->children[i]);  //debug
-            if(pointer->children[i] != NULL){
-                free_node(pointer->children[i]);
-                printf("pointer: %p\n", pointer); /// debug
-            }
-        }
-	free(pointer);
     }
+    for(int i = 0; i < ALPHA; i++){
+        if(pointer->children[i] != NULL){
+            free_node(pointer->children[i]);
+        }
+    }
+    free(pointer);
 }
 
 unsigned int get_index(const char symbol){
