@@ -87,9 +87,7 @@ bool check(const char * find_me){
     return trav->is_word;
 }
 
-/**
-* not working yet
-**/
+
 bool unload(void){
     TRNode * trav = root;
     if (trav == NULL){
