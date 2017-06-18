@@ -23,6 +23,10 @@ bool unload(void);
 
 void free_node(TRNode * pointer);
 
+unsigned int size(void);
+
+void size_helper(int * size, TRNode * pointer);
+
 unsigned int get_index(const char symbol);
 
 
