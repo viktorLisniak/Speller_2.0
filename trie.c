@@ -111,6 +111,25 @@ void free_node(TRNode * pointer){
     free(pointer);
 }
 
+unsigned int size(void){
+    TRNode * trav = root;
+    if(trav == NULL){
+        return false;
+    }
+    int size = 0;
+    size_helper(&size, trav);  // address of "size" variable
+    return size;
+}
+
+void size_helper(int * size, TRNode * pointer){
+    for(int i = 0; i < ALPHA; i++){
+        if(pointer->children[i] != NULL){
+            size_helper(size, pointer->children[i]);
+        }
+    }
+    *size = *size + 1;
+}
+
 unsigned int get_index(const char symbol){
     unsigned int num = 0;
     num = tolower(symbol) - 'a';
