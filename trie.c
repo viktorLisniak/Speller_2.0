@@ -72,7 +72,7 @@ bool load(const char * dictionary){
 bool check(const char * find_me){
     TRNode * trav = root;
     if(trav == NULL){
-		return false;
+	return false;
     }
     int i = 0;
     while(find_me[i] != 0){
