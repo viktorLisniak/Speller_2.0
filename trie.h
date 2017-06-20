@@ -17,6 +17,8 @@ bool check(const char * tofind);
 
 bool load(const char * dictionary);
 
+TRNode * new_node(void);
+
 unsigned int size(void);
 
 bool unload(void);
