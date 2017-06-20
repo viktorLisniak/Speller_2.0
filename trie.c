@@ -39,24 +39,11 @@ bool load(const char * dictionary){
         while(isalpha(temp[i])){
             unsigned int box = get_index(temp[i]);
             if(root == NULL){
-                TRNode * node = (TRNode*) malloc(1 * sizeof(TRNode));   /// error handling
-                if(node == NULL){
-                    return false;
-                }
-                root = node;
-                for (int q = 0; q < ALPHA; q++){root->children[q] = NULL;}
+                root = new_node();
                 trav = root;
             }
             if(trav->children[box] == NULL){
-                TRNode * temp_node = (TRNode*) malloc(1 * sizeof(TRNode));   /// error handling
-                if(temp_node == NULL){
-                    return false;
-                }
-                trav->children[box] = temp_node;
-                
-                for(int p = 0; p < ALPHA; p++){    //// this for loop helps to avoid any garbage in memory (i know it exists)
-                    trav->children[box]->children[p] = NULL;
-                } 
+                trav->children[box] = new_node();
             }
             trav = trav->children[box];
             i++;
@@ -67,6 +54,18 @@ bool load(const char * dictionary){
     }
     free(dict);
     return true;
+}
+
+TRNode * new_node(void){
+    TRNode * node = (TRNode*) malloc(1 * sizeof(TRNode));   /// error handling
+    if(node == NULL){
+        printf("You're out of memory\n");
+        return NULL;
+    }
+    for (int q = 0; q < ALPHA; q++) {  /// avoid any garbage in memory (i know it exists)
+        node->children[q] = NULL;
+    }  
+    return node;
 }
 
 bool check(const char * find_me){
