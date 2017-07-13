@@ -1,9 +1,9 @@
 #include "trie.h"
-#define DICTIONARY "small.txt"  // default args
-#define TEXT "text.txt"
+#define DICTIONARY "large.txt"  // default args
+#define TEXT "alice.txt"
 
 TRNode * root = NULL;
-
+/*
 int main(int argc, char * argv[]){
     
     if (argc != 2 && argc != 3){
@@ -13,25 +13,31 @@ int main(int argc, char * argv[]){
     char * text       = argc == 3 ? argv[2] : TEXT;
     
     bool is_loaded = load(dictionary);
-    
+    printf("dictionary* : %p\n", dictionary);
     printf("is loaded? : %d\n", is_loaded);
     
     FILE * tex = fopen(text, "r");
     char findme[MAX_LEN]; for(int f = 0; f < MAX_LEN; f++){ findme[f] = 0; }
     while(fscanf(tex, "%s", findme) != EOF){
-        bool was_found = check(findme);
+        bool was_found = false;
+        was_found = check(findme);
         printf("found?: %s %d\n", findme, was_found);
     }
+    
+    int trie_size = size();
+    printf("size: %d\n", trie_size);
     
     bool is_unloaded = unload();
     printf("is_unloaded? : %d\n", is_unloaded);
     
     free(tex);
+    
+    
     return 0;
 }
-
+*/
 bool load(const char * dictionary){
-    char temp[MAX_LEN]; for(int q = 0; q < MAX_LEN; q++){temp[q] = 0;}
+    char temp[LENGTH]; for(int q = 0; q < LENGTH; q++){temp[q] = 0;}
     FILE * dict = fopen(dictionary, "r");
     while(fscanf(dict, "%s", temp) != EOF){
         int i = 0;
@@ -71,7 +77,7 @@ TRNode * new_node(void){
 bool check(const char * find_me){
     TRNode * trav = root;
     if(trav == NULL){
-	return false;
+        return false;
     }
     int i = 0;
     while(find_me[i] != 0){
@@ -85,7 +91,6 @@ bool check(const char * find_me){
     }
     return trav->is_word;
 }
-
 
 bool unload(void){
     TRNode * trav = root;
@@ -114,7 +119,7 @@ unsigned int size(void){
         return false;
     }
     int size = 0;
-    size_helper(&size, trav);  // address of "size" variable
+    size_helper(&size, trav);
     return size;
 }
 
@@ -128,6 +133,9 @@ void size_helper(int * size, TRNode * pointer){
 }
 
 unsigned int get_index(const char symbol){
+    if(symbol == '\''){
+        return 26;
+    }
     unsigned int num = 0;
     num = tolower(symbol) - 'a';
     return num;

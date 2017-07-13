@@ -4,8 +4,8 @@
 #include<string.h>
 #include<strings.h>
 #include<stdbool.h>
-#define ALPHA 26
-#define MAX_LEN 45
+#define ALPHA 27      //// 27 but not 26 because of apostrophe 
+#define LENGTH 45
 #define trie_h
 
 typedef struct trie{
