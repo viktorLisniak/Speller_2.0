@@ -129,7 +129,9 @@ void size_helper(int * size, TRNode * pointer){
             size_helper(size, pointer->children[i]);
         }
     }
-    *size = *size + 1;
+    if(pointer->is_word){
+        *size = *size + 1;
+    }
 }
 
 unsigned int get_index(const char symbol){
